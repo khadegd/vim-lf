@@ -1,5 +1,5 @@
-*nnn.vim* nnn file manager plugin for vim/neovim.
-*nnn*
+*lf.vim* lf file manager plugin for vim/neovim.
+*lf*
 >
   __   __     __   __     __   __     __   __   __     __    __
  /\ "-.\ \   /\ "-.\ \   /\ "-.\ \   /\ \ / /  /\ \   /\ "-./  \
@@ -9,44 +9,44 @@
 <
 
 =============================================================================
-CONTENTS *nnn-help*
+CONTENTS *lf-help*
 
-  Introduction .......................... |nnn-intro|
-    Requirements .......................... |nnn-req|
-  Usage ................................. |nnn-usage|
-    Commands .............................. |nnn-commands|
-    Mappings .............................. |nnn-mappings|
-    Configurations ........................ |nnn-config|
-    Functions ............................. |nnn-func|
-  Miscellaneous ......................... |nnn-misc|
-  Credits ............................... |nnn-credits|
+  Introduction .......................... |lf-intro|
+    Requirements .......................... |lf-req|
+  Usage ................................. |lf-usage|
+    Commands .............................. |lf-commands|
+    Mappings .............................. |lf-mappings|
+    Configurations ........................ |lf-config|
+    Functions ............................. |lf-func|
+  Miscellaneous ......................... |lf-misc|
+  Credits ............................... |lf-credits|
 
 =============================================================================
-Introduction                                                        *nnn-intro*
+Introduction                                                        *lf-intro*
 
-This plugins attempts to make nnn the file manager companion for vim. Use it
-to create, remove, move files or to quickly select files in nnn and open them
+This plugins attempts to make lf the file manager companion for vim. Use it
+to create, remove, move files or to quickly select files in lf and open them
 in vim all without leaving vim. It achieves these but utilizing the built-in
 terminal feature of vim and neovim.
 
 -----------------------------------------------------------------------------
-Requirements                                                          *nnn-req*
+Requirements                                                          *lf-req*
 
-1. nnn
+1. lf
 2. Neovim or Vim 8.1 with terminal support
 
 =============================================================================
-Usage                                                               *nnn-usage*
+Usage                                                               *lf-usage*
 
-By running |:NnnPicker| or calling the |nnn#pick()| function, a new terminal
-buffer opens running an nnn process in picker mode.
+By running |:NnnPicker| or calling the |lf#pick()| function, a new terminal
+buffer opens running an lf process in picker mode.
 
-Once you select (see https://github.com/jarun/nnn#selection) one or more
-files and press enter, vim quits the nnn window and opens the first selected
+Once you select (see https://github.com/jarun/lf#selection) one or more
+files and press enter, vim quits the lf window and opens the first selected
 file and add the remaining files to the arg list/buffer list.
 
-Pressing enter on a file in nnn will pick any earlier selection, pick
-the file and exit nnn.
+Pressing enter on a file in lf will pick any earlier selection, pick
+the file and exit lf.
 
 Note that pressing <kbd>l</kbd> or <kbd>Right</kbd> on a file would open it
 instead of picking.
@@ -54,78 +54,78 @@ instead of picking.
 To discard selection and exit, press ^G.
 
 -----------------------------------------------------------------------------
-Commands                                                         *nnn-commands*
+Commands                                                         *lf-commands*
 
 :NnnPicker                                                         *:NnnPicker*
-                  Opens an nnn window.
+                  Opens an lf window.
 :Np                                                                       *:Np*
                   Does the same as :NnnPicker.
 
 -----------------------------------------------------------------------------
-Mappings                                                         *nnn-mappings*
+Mappings                                                         *lf-mappings*
 
-Defaults mappings. Can be disabled by setting |g:nnn#set_default_mappings| to
+Defaults mappings. Can be disabled by setting |g:lf#set_default_mappings| to
 0.
 
 <leader>n
                   Runs |:NnnPicker|.
 
 -----------------------------------------------------------------------------
-Configurations                                                     *nnn-config*
+Configurations                                                     *lf-config*
 
-g:nnn#set_default_mappings                         *g:nnn#set_default_mappings*
+g:lf#set_default_mappings                         *g:lf#set_default_mappings*
                   Default: 1
                   Enable default mappings.
                   Examples:
 >
                   " Disable default mappings
-                  let g:nnn#set_default_mappings = 0
+                  let g:lf#set_default_mappings = 0
 
                   " Set your own
                   nnoremap <silent> <leader>nn :NnnPicker<CR>
 
 
                   " Or override
-                  " Start nnn in the current file's directory
+                  " Start lf in the current file's directory
                   nnoremap <leader>n :NnnPicker '%:p:h'<CR>
 <
 
-g:nnn#layout                                                     *g:nnn#layout*
+g:lf#layout                                                     *g:lf#layout*
                   Default: 'enew'
-                  Display type for the nnn buffer. Default is |enew|, which
+                  Display type for the lf buffer. Default is |enew|, which
                   has a special behavior to act as a "split explorer" reusing
                   the current window and brings back the last buffer if
                   nothing is selected.
                   Examples:
 >
-                  " Opens the nnn window in a split
-                  let g:nnn#layout = 'new' " or vnew, tabnew etc.
+                  " Opens the lf window in a split
+                  let g:lf#layout = 'new' " or vnew, tabnew etc.
 
                   " Or pass a dictionary with window size
-                  let g:nnn#layout = { 'left': '~20%' } " or right, up, down
+                  let g:lf#layout = { 'left': '~20%' } " or right, up, down
 
                   " Floating window (neovim only for now)
-                  let g:nnn#layout = { 'window': { 'width': 0.9, 'height': 0.6, 'highlight': 'Debug' } }
+                  let g:lf#layout = { 'window': { 'width': 0.9, 'height': 0.6, 'highlight': 'Debug' } }
                   " Options:
                   " width, height, yoffset, xoffset : number
                   " highlight : highlight group assign to the border
                   " border : border style - 'rounded' / 'sharp' / 'horizontal' / 'vertical' / 'top' / 'bottom' / 'left' / 'right'
 <
 
-g:nnn#action                                                     *g:nnn#action*
+g:lf#action                                                     *g:lf#action*
                   Default: {}
-                  Additional key-binding set for the nnn buffer for opening
+                  Additional key-binding set for the lf buffer for opening
                   files in different ways. Nothing is set by default to not
-                  override nnn's own key-bindings.
+                  override lf's own key-bindings.
                   Examples:
 >
-                  let g:nnn#action = {
+                  let g:lf#action = {
                         \ '<c-t>': 'tab split',
                         \ '<c-x>': 'split',
                         \ '<c-v>': 'vsplit',
                         \ '<c-o>': function('CopyLinestoRegister') }
 
-                  For example, when inside an nnn window, pressing <C-t> will
+                  For example, when inside an lf window, pressing <C-t> will
                   open the selected file in a tab, instead of the current
                   window. <C-x> will open in a split an so on. Meanwhile for
                   multi selected files will be loaded in the buffer list.
@@ -143,32 +143,32 @@ g:nnn#action                                                     *g:nnn#action*
                   endfunction
 <
 
-g:nnn#command                                                   *g:nnn#command*
-                  Default: 'nnn'
-                  When you want to override the default nnn command and add
+g:lf#command                                                   *g:lf#command*
+                  Default: 'lf'
+                  When you want to override the default lf command and add
                   some extra flags.
-                  Example you want to start nnn in detail mode.
+                  Example you want to start lf in detail mode.
 >
-                  let g:nnn#command = 'nnn -d'
+                  let g:lf#command = 'lf -d'
 
                   " or pass some env variables
-                  let g:nnn#command = 'NNN_TRASH=1 nnn -d'
+                  let g:lf#command = 'NNN_TRASH=1 lf -d'
 <
 
-g:nnn#replace_netrw                                       *g:nnn#replace_netrw*
+g:lf#replace_netrw                                       *g:lf#replace_netrw*
                   Default: 0
-                  Open nnn instead of netrw when opening a directory.
+                  Open lf instead of netrw when opening a directory.
 
 
-g:nnn#statusline                                             *g:nnn#statusline*
+g:lf#statusline                                             *g:lf#statusline*
                   Default: 1
-                  The nnn statusline. Set to 0 to disable.
+                  The lf statusline. Set to 0 to disable.
 
 
 -----------------------------------------------------------------------------
-Functions                                                            *nnn-func*
+Functions                                                            *lf-func*
 
-nnn#pick([{dir}][,{opts}])                                         *nnn#pick()*
+lf#pick([{dir}][,{opts}])                                         *lf#pick()*
                   Can be called with custom directory and additional options
                   such as opening file in splits or tabs. Basically a more
                   configurable version of |:NnnPicker| command.
@@ -178,34 +178,34 @@ nnn#pick([{dir}][,{opts}])                                         *nnn#pick()*
                     edit  : type of window the select file will be open. Or
                             pass a FuncRef and array of selected files will be
                             passed to that function.
-                    layout: same as |g:nnn#layout| and overrides it if
+                    layout: same as |g:lf#layout| and overrides it if
                              specified.
 
                   Example:
 >
-                  call nnn#pick('~/some-files', { 'edit': 'vertical split' })
+                  call lf#pick('~/some-files', { 'edit': 'vertical split' })
 <
 
 =============================================================================
-Miscellaneous                                                        *nnn-misc*
+Miscellaneous                                                        *lf-misc*
 
-You can define env variables in `vimrc` and nnn will detect it.
+You can define env variables in `vimrc` and lf will detect it.
 >
                   let $NNN_TRASH=1
 <
 
 =============================================================================
-Credits                                                           *nnn-credits*
+Credits                                                           *lf-credits*
 
-Main nnn program by Arun Prakash Jana
+Main lf program by Arun Prakash Jana
 github: https://github.com/jarun
 
 Vim/neovim plugin maintained by Michael Chris Lopez
 gitub: https://github.com/mcchrish
 
 Source codes:
-nnn: https://github.com/jarun/nnn
-vim plugin: https://github.com/mcchrish/nnn.vim
+lf: https://github.com/jarun/lf
+vim plugin: https://github.com/mcchrish/lf.vim
 
 =============================================================================
 vim:tw=78:ts=2:et:ft=help:norl:

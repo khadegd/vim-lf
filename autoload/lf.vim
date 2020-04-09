@@ -6,9 +6,9 @@ let s:temp_popup_frame_buf = -1
 let s:win_id = -1
 let s:win_frame_id = -1
 
-function! nnn#select_action(action)
+function! lf#select_action(action)
     let s:action = a:action
-    " quit nnn
+    " quit lf
     if has("nvim")
         call feedkeys("i\<cr>")
     else
@@ -20,7 +20,7 @@ function! s:create_on_exit_callback(opts)
     let l:opts = a:opts
     function! s:callback(id, code, ...) closure
         if a:code != 0
-            echohl ErrorMsg | echo 'nnn exited with '.a:code | echohl None
+            echohl ErrorMsg | echo 'lf exited with '.a:code | echohl None
             return
         endif
 
@@ -270,16 +270,16 @@ function! s:eval_temp_file(opts) abort
 endfunction
 
 function! s:statusline()
-    setlocal statusline=%#StatusLineTerm#\ nnn\ %#StatusLineTermNC#
+    setlocal statusline=%#StatusLineTerm#\ lf\ %#StatusLineTermNC#
 endfunction
 
-function! nnn#pick(...) abort
+function! lf#pick(...) abort
     let l:directory = expand(get(a:, 1, ""))
     let l:default_opts = { 'edit': 'edit' }
     let l:opts = extend(l:default_opts, get(a:, 2, {}))
     let s:temp_file = tempname()
-    let l:cmd = g:nnn#command.' -p '.shellescape(s:temp_file).' '.expand(l:directory)
-    let l:layout = exists('l:opts.layout') ? l:opts.layout : g:nnn#layout
+    let l:cmd = g:lf#command.' -selection-path='.shellescape(s:temp_file).' '.expand(l:directory)
+    let l:layout = exists('l:opts.layout') ? l:opts.layout : g:lf#layout
 
     let l:opts.layout = l:layout
     let l:opts.ppos = { 'buf': bufnr(''), 'win': winnr(), 'tab': tabpagenr() }
@@ -298,8 +298,8 @@ function! nnn#pick(...) abort
             call term_wait(s:tbuf, 20)
         endif
     endif
-    setf nnn
-    if g:nnn#statusline
+    setf lf
+    if g:lf#statusline
         call s:statusline()
     endif
 endfunction
