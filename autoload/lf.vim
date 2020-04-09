@@ -278,7 +278,7 @@ function! lf#pick(...) abort
     let l:default_opts = { 'edit': 'edit' }
     let l:opts = extend(l:default_opts, get(a:, 2, {}))
     let s:temp_file = tempname()
-    let l:cmd = g:lf#command.' -selection-path='.shellescape(s:temp_file).' '.expand(l:directory)
+    let l:cmd = g:lf#command.' -selection-path='.s:temp_file.' '.expand(l:directory)
     let l:layout = exists('l:opts.layout') ? l:opts.layout : g:lf#layout
 
     let l:opts.layout = l:layout
@@ -295,7 +295,7 @@ function! lf#pick(...) abort
         let s:tbuf = term_start([&shell, &shellcmdflag, l:cmd], {'curwin': 1, 'exit_cb': function(l:On_exit)})
         let l:opts.tbuf = s:tbuf
         if !has('patch-8.0.1261') && !has('nvim')
-            call term_wait(s:tbuf, 20)
+            "call term_wait(s:tbuf, 20)
         endif
     endif
     setf lf
