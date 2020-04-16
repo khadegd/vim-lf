@@ -38,7 +38,7 @@ endif
 if g:lf#replace_netrw
     function! s:lf_pick_on_load_dir(argv_path)
         let l:path = expand(a:argv_path)
-        bdelete!
+        bwipeout!
         call lf#pick(l:path, {'layout': 'enew'})
     endfunction
 

@@ -12,7 +12,7 @@ function! lf#select_action(action)
     if has("nvim")
         call feedkeys("i\<cr>")
     else
-        call term_sendkeys(s:tbuf, "\<cr>")
+        call term_sendkeys(s:tbuf, "i\<cr>")
     endif
 endfunction
 
@@ -188,7 +188,7 @@ function! s:switch_back(opts, Cmd)
     if type(l:layout) == v:t_string && l:layout == 'enew' && bufexists(l:buf)
         execute 'keepalt b' l:buf
         if bufexists(l:tbuf)
-            execute 'bdelete!' l:tbuf
+            execute 'bwipeout!' l:tbuf
         endif
     endif
 
@@ -196,13 +196,13 @@ function! s:switch_back(opts, Cmd)
         call popup_close(s:win_id)
         call popup_close(s:win_frame_id)
         if bufexists(l:tbuf)
-            execute 'bdelete!' l:tbuf
+            execute 'bwipeout!' l:tbuf
         endif
         if bufexists(s:temp_popup_tbuf)
-            execute 'bdelete!' s:temp_popup_tbuf
+            execute 'bwipeout!' s:temp_popup_tbuf
         endif
         if bufexists(s:temp_popup_frame_buf)
-            execute 'bdelete!' s:temp_popup_frame_buf
+            execute 'bwipeout!' s:temp_popup_frame_buf
         endif
     endif
 
@@ -212,7 +212,7 @@ function! s:switch_back(opts, Cmd)
                 \ || (type(l:layout) != v:t_string
                 \ || (type(l:layout) == v:t_string && l:layout != 'enew'))
         if bufexists(l:tbuf)
-            execute 'bdelete!' l:tbuf
+            execute 'bwipeout!' l:tbuf
         endif
         silent! execute 'tabnext' a:opts.ppos.tab
         silent! execute a:opts.ppos.win.'wincmd w'
@@ -264,7 +264,7 @@ function! s:eval_temp_file(opts) abort
     let s:action = "" " reset action
 
     if bufexists(l:tbuf)
-        execute 'bdelete!' l:tbuf
+        execute 'bwipeout!' l:tbuf
     endif
     redraw!
 endfunction
@@ -278,7 +278,7 @@ function! lf#pick(...) abort
     let l:default_opts = { 'edit': 'edit' }
     let l:opts = extend(l:default_opts, get(a:, 2, {}))
     let s:temp_file = tempname()
-    let l:cmd = g:lf#command.' -selection-path='.s:temp_file.' '.expand(l:directory)
+    let l:cmd = g:lf#command .' -selection-path='.s:temp_file.' '.expand(l:directory)
     let l:layout = exists('l:opts.layout') ? l:opts.layout : g:lf#layout
 
     let l:opts.layout = l:layout
